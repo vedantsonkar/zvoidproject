@@ -59,10 +59,23 @@ button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
-.column {
+.columnBefore {
   float: left;
   width: 50%;
   padding: 0 10px;
+}
+
+.column {
+  float: left;
+  width: 40%;
+  padding: 0 10px;
+}
+
+.columnMiddle {
+  float: left;
+  width: 20%;
+  padding: 0 10px;
+  position: relative;
 }
 
 .card {
@@ -116,6 +129,9 @@ button:focus-visible {
   display: block;
 }
 
+section {
+  font-family: 'Inter', sans-serif;
+}
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;

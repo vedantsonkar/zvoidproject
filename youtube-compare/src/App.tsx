@@ -1,18 +1,45 @@
-import React from "react";
+import React, { useEffect } from "react";
 import firstThumbnail from "./assets/1st thumbnail.jpg";
 import secondThumbnail from "./assets/2nd thumbnail.jpg";
 import thirdThumbnail from "./assets/3rd thumbnail.jpg";
 import fourthThumbnail from "./assets/4th thumbnail.jpg";
 import fifthThumbnail from "./assets/5th thumbnail.jpg";
 import sixthThumbnail from "./assets/6th thumbnail.jpg";
-import playImage from "./assets/play.png";
-import { PaperClipIcon } from "@heroicons/react/20/solid";
-//import './App.css';
 
 function App() {
+  const [likesStyle, setLikesPercent] = React.useState({ width: "0%" });
+  const [viewsStyle, setViewsPercent] = React.useState({ width: "0%" });
+  const [commentsStyle, setCommentsPercent] = React.useState({ width: "0%" });
+  const [video1, setVideo1] = React.useState<any>(null);
+  const [video2, setVideo2] = React.useState<any>(null);
+  let option: any[] = [];
+  let option2: any[] = [];
+  useEffect(() => {
+    setLikesPercent({
+      width: `${isWhatPercentOf(video1?.likes, video2?.likes)}%`,
+    });
+    setViewsPercent({
+      width: `${isWhatPercentOf(video1?.views, video2?.views)}%`,
+    });
+    setCommentsPercent({
+      width: `${isWhatPercentOf(video1?.comments, video2?.comments)}%`,
+    });
+  }, [video1, video2]);
+
+  function isWhatPercentOf(numA: number, numB: number, type?: string) {
+    if (numB > numA) {
+      const p = Math.round((numA / numB) * 100);
+      return p;
+    }
+    const p = Math.round((numB / numA) * 100);
+    return p;
+  }
+
+  const [columnsBefore, setColumnsBefore] = React.useState("columnBefore");
+
   const videos = [
     {
-      id: 1,
+      id: 0,
       videoName: "Nothing Team Review Fake Products",
       description: (
         <p>
@@ -25,15 +52,15 @@ function App() {
         </p>
       ),
       url: "https://www.youtube.com/watch?v=U6Bj_2DuEL4",
-      likes: "10K",
+      likes: 10006,
       views: 155623,
       comments: 494,
       channel: "Nothing",
       thumbnail: "https://i.ytimg.com/vi/U6Bj_2DuEL4/maxresdefault.jpg",
-      thumbnailImage: { firstThumbnail } ,
+      thumbnailImage: { firstThumbnail },
     },
     {
-      id: 2,
+      id: 1,
       videoName: "I Made Her a Desi Cricketer | SlayyPop",
       description: (
         <p>
@@ -46,7 +73,7 @@ function App() {
         </p>
       ),
       url: "https://www.youtube.com/watch?v=4QojQqpZ018",
-      likes: "103K",
+      likes: 103002,
       views: 1433761,
       comments: 1881,
       channel: "SlayyPop",
@@ -54,7 +81,7 @@ function App() {
       thumbnailImage: { secondThumbnail },
     },
     {
-      id: 3,
+      id: 2,
       videoName: "The Electric Car Pre-Order Problem",
       description: (
         <p>
@@ -67,7 +94,7 @@ function App() {
         </p>
       ),
       url: "https://www.youtube.com/watch?v=a6zvvlrd-jw",
-      likes: "115K",
+      likes: 115101,
       views: 2436125,
       comments: 8507,
       channel: "Marques Brownlee",
@@ -75,7 +102,7 @@ function App() {
       thumbnailImage: { thirdThumbnail },
     },
     {
-      id: 4,
+      id: 3,
       videoName: "Apple FINALLY Admits it...",
       description: (
         <p>
@@ -84,7 +111,7 @@ function App() {
         </p>
       ),
       url: "https://www.youtube.com/watch?v=HUgROf8QGCo",
-      likes: "7.7K",
+      likes: 102346,
       views: 371212,
       comments: 725,
       channel: "LaterClips",
@@ -92,7 +119,7 @@ function App() {
       thumbnailImage: { fourthThumbnail },
     },
     {
-      id: 5,
+      id: 4,
       videoName:
         "Cities Skylines Financial District DLC made INSIDER TRADING Legal?!",
       description: (
@@ -145,7 +172,7 @@ function App() {
         </p>
       ),
       url: "https://www.youtube.com/watch?v=qyPmdzm2-is",
-      likes: "5.5K",
+      likes: 5502,
       views: 120207,
       comments: 161,
       channel: "ImKibitz",
@@ -153,7 +180,7 @@ function App() {
       thumbnailImage: { fifthThumbnail },
     },
     {
-      id: 6,
+      id: 5,
       videoName: "Using TESLA VALVES to beat Happy Glass!",
       description: (
         <p>
@@ -184,7 +211,7 @@ function App() {
         </p>
       ),
       url: "https://www.youtube.com/watch?v=agrKQ9T58To",
-      likes: "24K",
+      likes: 24007,
       views: 604051,
       comments: 554,
       channel: "Real Civil Engineer",
@@ -193,11 +220,6 @@ function App() {
     },
   ];
 
-  let option: [] = [];
-    
-  let option2: [] = [];
-    
-  
   videos.forEach((video) => {
     option.push(
       //@ts-ignore//
@@ -229,8 +251,6 @@ function App() {
     );
   });
 
-  const [video1, setVideo1] = React.useState<any>(null);
-  const [video2, setVideo2] = React.useState<any>(null);
   const [dropdownshow, setDropdownShow] = React.useState(0);
   const [dropdownshow2, setDropdownShow2] = React.useState(0);
 
@@ -238,7 +258,7 @@ function App() {
     <>
       <div className="App">
         <div className="row">
-          <div className="column">
+          <div className={columnsBefore}>
             <header aria-label="Page Header" className="header">
               <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 lg:px-8">
                 <div className="relative" id="searchBar">
@@ -280,7 +300,6 @@ function App() {
                         {video1?.videoName}
                       </h3>
                     </a>
-
                     <div className="flex flex-col">
                       <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
                         <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
@@ -357,7 +376,186 @@ function App() {
               </div>
             )}
           </div>
-          <div className="column">
+          {video1 && video2 && (
+            <div className="columnMiddle">
+              <header aria-label="Page Header" className="header">
+                <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 lg:px-8">
+                  <div className="relative" id="searchBar">
+                    <button
+                      className="h-10 w-full border-none pl-4 pr-10 sm:w-56 text-center"
+                      onClick={() => {
+                        setVideo1(null);
+                        setVideo2(null);
+                      }}
+                    >
+                      Reset
+                    </button>
+                  </div>
+                </div>
+              </header>
+              <div className="rounded-2xl bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 p-1 shadow-xl">
+                <a className="block rounded-xl bg-white p-6 sm:p-8">
+                  <div className="mt-16 sm:pr-8">
+                    <a href={video1?.url}>
+                      <img
+                        src={video1?.thumbnail}
+                        alt="Video Thumbnail"
+                        className="cursor-pointer"
+                      ></img>
+                      <h3 className="text-xl font-bold text-gray-900">
+                        {video1?.videoName}
+                      </h3>
+                    </a>
+
+                    <div>VS</div>
+
+                    <a href={video2?.url}>
+                      <img
+                        src={video2?.thumbnail}
+                        alt="Video Thumbnail"
+                        className="cursor-pointer"
+                      ></img>
+                      <h3 className="text-xl font-bold text-gray-900">
+                        {video2?.videoName}
+                      </h3>
+                    </a>
+
+                    <a className="block rounded-xl bg-slate-900 p-1 sm:p-3 m-1">
+                      <div className="w-full mb-5">
+                        <div className="flex mb-2">
+                          <span className="m-auto font-semibold leading-normal capitalize text-sm text-fuchsia-500 block">
+                            Likes :
+                          </span>
+                          <span className="m-auto font-semibold leading-normal text-sm">
+                            {isWhatPercentOf(video1?.likes, video2?.likes)}%
+                          </span>
+                        </div>
+                        {video1?.likes > video2?.likes ? (
+                          <>
+                            <span className="mr-2 font-semibold leading-normal capitalize text-sm">
+                              {video1?.videoName} is ahead by{" "}
+                              {isWhatPercentOf(video1?.likes, video2?.likes)}%
+                            </span>
+                          </>
+                        ) : (
+                          <>
+                            <span className="mr-2 font-semibold leading-normal capitalize text-sm">
+                              {video2?.videoName} is ahead by{" "}
+                              {isWhatPercentOf(
+                                video2?.likes,
+                                video1?.likes,
+                                "likes"
+                              )}
+                              % in likes
+                            </span>
+                          </>
+                        )}
+                        <div>
+                          <div className="h-0.75 text-xs flex overflow-visible rounded-lg bg-gray-200">
+                            <div
+                              style={likesStyle}
+                              className="bg-fuchsia-500 transition-width duration-600 ease-soft rounded-1 -mt-0.4 -ml-px flex h-1.5 flex-col justify-center overflow-hidden whitespace-nowrap text-center text-white"
+                            ></div>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+
+                    <a className="block rounded-xl bg-slate-900 p-1 sm:p-3 m-1">
+                      <div className="w-full mb-5">
+                        <div className="flex mb-2">
+                          <span className="m-auto font-semibold leading-normal capitalize text-sm text-cyan-500 block">
+                            Comments :
+                          </span>
+                          <span className="m-auto font-semibold leading-normal text-sm">
+                            {isWhatPercentOf(
+                              video1?.comments,
+                              video2?.comments
+                            )}
+                            %
+                          </span>
+                        </div>
+                        {video1?.commments > video2?.comments ? (
+                          <>
+                            <span className="mr-2 font-semibold leading-normal capitalize text-sm">
+                              {video1?.videoName} is ahead by{" "}
+                              {isWhatPercentOf(
+                                video1?.comments,
+                                video2?.comments
+                              )}
+                              %
+                            </span>
+                          </>
+                        ) : (
+                          <>
+                            <span className="mr-2 font-semibold leading-normal capitalize text-sm">
+                              {video2?.videoName} is ahead by{" "}
+                              {isWhatPercentOf(
+                                video2?.comments,
+                                video1?.comments,
+                                "comments"
+                              )}
+                              % in comments
+                            </span>
+                          </>
+                        )}
+                        <div>
+                          <div className="h-0.75 text-xs flex overflow-visible rounded-lg bg-gray-200">
+                            <div
+                              style={commentsStyle}
+                              className="bg-cyan-500 transition-width duration-600 ease-soft rounded-1 -mt-0.4 -ml-px flex h-1.5 flex-col justify-center overflow-hidden whitespace-nowrap text-center text-white"
+                            ></div>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+
+                    <a className="block rounded-xl bg-slate-900 p-1 sm:p-3 m-1">
+                      <div className="w-full mb-5">
+                        <div className="flex mb-2">
+                          <span className="m-auto font-semibold leading-normal capitalize text-sm text-lime-500 block">
+                            Views :
+                          </span>
+                          <span className="m-auto font-semibold leading-normal text-sm">
+                            {isWhatPercentOf(video1?.views, video2?.views)}%
+                          </span>
+                        </div>
+                        {video1?.commments > video2?.views ? (
+                          <>
+                            <span className="mr-2 font-semibold leading-normal capitalize text-sm">
+                              {video1?.videoName} is ahead by{" "}
+                              {isWhatPercentOf(video1?.views, video2?.views)}%
+                            </span>
+                          </>
+                        ) : (
+                          <>
+                            <span className="mr-2 font-semibold leading-normal capitalize text-sm">
+                              {video2?.videoName} is ahead by{" "}
+                              {isWhatPercentOf(
+                                video2?.views,
+                                video1?.views,
+                                "views"
+                              )}
+                              % in Views
+                            </span>
+                          </>
+                        )}
+                        <div>
+                          <div className="h-0.75 text-xs flex overflow-visible rounded-lg bg-gray-200">
+                            <div
+                              style={viewsStyle}
+                              className="bg-lime-500 transition-width duration-600 ease-soft rounded-1 -mt-0.4 -ml-px flex h-1.5 flex-col justify-center overflow-hidden whitespace-nowrap text-center text-white"
+                            ></div>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                </a>
+              </div>
+            </div>
+          )}
+          <div className={columnsBefore}>
             <header aria-label="Page Header" className="header">
               <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 lg:px-8">
                 <div className="relative" id="searchBar">
@@ -374,6 +572,7 @@ function App() {
                     value={video2?.videoName}
                     onClick={() => {
                       setDropdownShow2(dropdownshow2 + 1);
+                      setColumnsBefore("column");
                     }}
                   />
                   <div
